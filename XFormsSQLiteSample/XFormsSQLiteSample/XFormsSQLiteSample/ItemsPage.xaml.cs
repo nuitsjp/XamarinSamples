@@ -21,11 +21,15 @@ namespace XFormsSQLiteSample
             InitializeComponent();
         }
 
+        /// <summary>
+        /// アプリケーション起動時の処理
+        /// </summary>
         protected override async void OnAppearing()
         {
+            // DBへのコネクションを取得してくる
             using (var connection = await CreateConnection())
             {
-                // Id順にソートして取得する
+                // テーブルから登録済みの値を取得し、ObservableCollectionに突っ込んで画面にリスト表示する
                 foreach (var item in (from x in connection.Table<Item>() orderby x.Id select x))
                 {
                     Items.Add(item);
@@ -33,12 +37,19 @@ namespace XFormsSQLiteSample
             }
         }
 
+        /// <summary>
+        /// 追加ボタンを押下された場合のイベントハンドラ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public async void OnButtonClicked(object sender, EventArgs e)
         {
+            // Entryに値が設定されていた場合のみ処理する
             if (!string.IsNullOrEmpty(Value))
             {
                 using (var connection = await CreateConnection())
                 {
+                    // Entryに設定されていた値をDBとListに追加する
                     var item = new Item { Value = Value };
                     connection.Insert(item);
                     Items.Add(item);
@@ -46,6 +57,11 @@ namespace XFormsSQLiteSample
             }
         }
 
+        /// <summary>
+        /// SQLiteデータベースへのコネクションを取得する。
+        /// 取得したコネクションは取得した側で正しくクローズ処理すること。
+        /// </summary>
+        /// <returns></returns>
         private async Task<SQLiteConnection> CreateConnection()
         {
             const string DatabaseFileName = "item.db3";

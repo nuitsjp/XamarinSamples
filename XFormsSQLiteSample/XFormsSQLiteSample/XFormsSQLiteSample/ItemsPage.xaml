@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XFormsSQLiteSample.ItemsPage"
              x:Name="MyInstance">
-  <Grid>
+  <Grid>  
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="*"/>
@@ -13,7 +13,7 @@
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="Auto"/>
       </Grid.ColumnDefinitions>
-      <Entry x:Name="ValueEntry" Text="{Binding Source={x:Reference MyInstance},  Path=Value}"/>
+      <Entry Text="{Binding Source={x:Reference MyInstance},  Path=Value}"/>
       <Button Grid.Column="1" Text="追加" Clicked="OnButtonClicked"/>
     </Grid>
     <ListView Grid.Row="1" ItemsSource="{Binding Source={x:Reference MyInstance},  Path=Items}">
