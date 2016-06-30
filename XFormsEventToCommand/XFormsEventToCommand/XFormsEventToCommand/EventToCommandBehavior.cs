@@ -57,13 +57,6 @@ namespace XFormsEventToCommand
         Delegate eventHandler;
 
         /// <summary>
-        /// インスタンスを初期化する
-        /// </summary>
-        public EventToCommandBehavior()
-        {
-        }
-
-        /// <summary>
         /// アタッチ時に、対象のイベントの購読設定を行う
         /// </summary>
         /// <param name="bindable"></param>
