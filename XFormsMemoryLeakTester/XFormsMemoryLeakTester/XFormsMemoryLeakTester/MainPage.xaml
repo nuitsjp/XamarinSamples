@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XFormsMemoryLeakTester"
+             x:Class="XFormsMemoryLeakTester.MainPage">
+  <ContentPage.BindingContext>
+    <local:MainPageViewModel/>
+  </ContentPage.BindingContext>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <ListView ItemsSource="{Binding Items}">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <Label Text="{Binding Label}"/>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+        <ColumnDefinition Width="*"/>
+      </Grid.ColumnDefinitions>
+      <Button Grid.Column="0" Text="Start" Command="{Binding StartCommand}"/>
+      <Button Grid.Column="1" Text="Stop" Command="{Binding StopCommand}"/>
+      <Button Grid.Column="2" Text="GC" Command="{Binding GcCommand}"/>
+    </Grid>
+  </Grid>
+</ContentPage>
