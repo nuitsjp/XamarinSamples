@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:XFormsBindingSample"
              x:Class="XFormsBindingSample.ElementNameSubstitutePage">
+  <ContentPage.BindingContext>
+    <local:ElementNameSubstitutePageViewModel/>
+  </ContentPage.BindingContext>
   <StackLayout Orientation="Vertical">
     <Slider x:Name="ValueSlider" Minimum="0" Maximum="100" Margin="10"/>
     <Label Text="{Binding Source={x:Reference ValueSlider},  Path=Value}" HorizontalOptions="Center" />
+    <Entry Text="{Binding Message}"/>
+    <Button Text="Execute" Command="{Binding ExecuteCommand}"/>
   </StackLayout>
 </ContentPage>

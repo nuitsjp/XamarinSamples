@@ -39,7 +39,9 @@
     <Compile Include="ElementNameSubstitutePage.xaml.cs">
       <DependentUpon>ElementNameSubstitutePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ElementNameSubstitutePageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RelayCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
