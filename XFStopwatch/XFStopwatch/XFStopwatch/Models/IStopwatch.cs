@@ -32,7 +32,7 @@ namespace XFStopwatch.Models
         /// 計測を開始する
         /// </summary>
         /// <remarks>
-        /// <see cref="StopwatchStatus"/>が停止状態の場合に計測を開始する。
+        /// <see cref="Status"/>が停止状態の場合に計測を開始する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
         void Start();
@@ -40,7 +40,7 @@ namespace XFStopwatch.Models
         /// ラップタイムを取得する
         /// </summary>
         /// <remarks>
-        /// <see cref="StopwatchStatus"/>が計測中状態の場合にラップタイムを取得する。
+        /// <see cref="Status"/>が計測中状態の場合にラップタイムを取得する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
         void Rap();
@@ -48,7 +48,7 @@ namespace XFStopwatch.Models
         /// 計測を一時停止状態へ変更する
         /// </summary>
         /// <remarks>
-        /// <see cref="StopwatchStatus"/>が計測中状態の場合に一時停止状態へ変更する。
+        /// <see cref="Status"/>が計測中状態の場合に一時停止状態へ変更する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
         void Stop();
@@ -56,7 +56,7 @@ namespace XFStopwatch.Models
         /// 計測を停止する
         /// </summary>
         /// <remarks>
-        /// <see cref="StopwatchStatus"/>が一時停止状態の場合に計測を停止する。
+        /// <see cref="Status"/>が一時停止状態の場合に計測を停止する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
         void Reset();
