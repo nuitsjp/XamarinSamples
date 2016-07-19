@@ -23,11 +23,11 @@ namespace XFStopwatch.Models
         /// <summary>
         /// 経過時間更新イベント
         /// </summary>
-        event EventHandler<SingleParameterEventArgs<TimeSpan>> ElapsedChanged;
+        event EventHandler ElapsedChanged;
         /// <summary>
         /// 状態更新イベント
         /// </summary>
-        event EventHandler<SingleParameterEventArgs<StopwatchStatus>> StatusChanged;
+        event EventHandler StatusChanged;
         /// <summary>
         /// 計測を開始する
         /// </summary>

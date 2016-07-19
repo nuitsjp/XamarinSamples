@@ -40,7 +40,6 @@
     <Compile Include="Models\Measurements.cs" />
     <Compile Include="Models\IStopwatch.cs" />
     <Compile Include="Models\ITimerService.cs" />
-    <Compile Include="Models\SingleParameterEventArgs.cs" />
     <Compile Include="Models\Stopwatch.cs" />
     <Compile Include="Models\StopwatchStatus.cs" />
     <Compile Include="Models\TimerService.cs" />
