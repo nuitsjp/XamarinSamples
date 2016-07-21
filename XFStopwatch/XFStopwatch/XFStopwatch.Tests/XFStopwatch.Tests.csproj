@@ -58,6 +58,7 @@
     <Compile Include="Models\TimeServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\TimerServiceTest.cs" />
+    <Compile Include="ServiceLocatorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
