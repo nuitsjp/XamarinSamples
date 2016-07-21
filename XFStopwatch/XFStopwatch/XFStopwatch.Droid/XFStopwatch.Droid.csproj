@@ -115,8 +115,9 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XFStopwatch\XFStopwatch.csproj">
-      <Name>XFStopwatch</Name>
+    <ProjectReference Include="..\..\XFStopwatch.Views\XFStopwatch.Views.csproj">
+      <Project>{0943ed9f-8461-4074-a622-5615f5e345ce}</Project>
+      <Name>XFStopwatch.Views</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
