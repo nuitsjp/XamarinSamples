@@ -50,7 +50,7 @@ namespace XFStopwatch.Models
 
         public void Stop()
         {
-            throw new NotImplementedException();
+            _timerService.Stop();
         }
 
         public void Reset()
