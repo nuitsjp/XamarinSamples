@@ -26,5 +26,10 @@ namespace XFStopwatch
                 throw new ArgumentException($"{typeof(T).FullName} is not registration.");
             }
         }
+
+        public static void Clear()
+        {
+            Store.Clear();
+        }
     }
 }

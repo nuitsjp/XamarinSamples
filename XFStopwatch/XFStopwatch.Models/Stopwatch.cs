@@ -9,24 +9,24 @@ namespace XFStopwatch.Models
 {
     public class Stopwatch : IStopwatch
     {
-        private ITimeService _timeService;
-        private ITimerService _timerService;
-        private DateTime _beginDateTime;
+        private readonly ITimeService _timeService;
+        private readonly ITimerService _timerService;
         private readonly ObservableCollection<TimeSpan> _rapTimes = new ObservableCollection<TimeSpan>();
+        public DateTime BeginDateTime { get; private set; }
+        public DateTime RestartDateTime { get; private set; }
         public TimeSpan Elapsed { get; private set; } = TimeSpan.Zero;
         public StopwatchStatus Status { get; private set; } = StopwatchStatus.Stoped;
 
         public ReadOnlyObservableCollection<TimeSpan> RapTimes { get; }
         public event EventHandler ElapsedChanged;
         public event EventHandler StatusChanged;
-        public Stopwatch(ITimeService timeService, ITimerService timerService)
+        public Stopwatch()
         {
-            var stopwatch = new System.Diagnostics.Stopwatch();
-            _timeService = timeService;
-            _timerService = timerService;
+            _timeService = ServiceLocator.Locate<ITimeService>();
+            _timerService = ServiceLocator.Locate<ITimerService>();
             _timerService.Elapsed += (sender, e) =>
             {
-                Elapsed = _timeService.Now - _beginDateTime;
+                Elapsed = _timeService.Now - BeginDateTime;
                 RiseElapsedChanged();
             };
             RapTimes = new ReadOnlyObservableCollection<TimeSpan>(_rapTimes);
@@ -37,7 +37,8 @@ namespace XFStopwatch.Models
         {
             Status = StopwatchStatus.Running;
             Elapsed = TimeSpan.Zero;
-            _beginDateTime = DateTime.Now;
+            BeginDateTime = _timeService.Now;
+            RestartDateTime = BeginDateTime;
             RiseElapsedChanged();
             _timerService.Start();
         }

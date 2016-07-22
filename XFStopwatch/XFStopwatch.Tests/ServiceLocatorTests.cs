@@ -35,6 +35,18 @@ namespace XFStopwatch.Tests
             ServiceLocator.Locate<string>();
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void TestClear()
+        {
+            ServiceLocator.Register(1);
+            Assert.AreEqual(1, ServiceLocator.Locate<int>());
+            ServiceLocator.Clear();
+            ServiceLocator.Locate<int>();
+        }
+
+
+
         public interface IService
         {
         }
