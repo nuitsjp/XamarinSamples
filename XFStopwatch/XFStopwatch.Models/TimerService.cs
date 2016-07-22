@@ -22,7 +22,10 @@ namespace XFStopwatch.Models
                 while (!_cancellationTokenSource.IsCancellationRequested)
                 {
                     await Task.Delay(Interval);
-                    Elapsed?.Invoke(this, EventArgs.Empty);
+                    if (_cancellationTokenSource != null)
+                    {
+                        Elapsed?.Invoke(this, EventArgs.Empty);
+                    }
                 }
             }, _cancellationTokenSource.Token);
         }
@@ -30,6 +33,7 @@ namespace XFStopwatch.Models
         public void Stop()
         {
             _cancellationTokenSource?.Cancel();
+            _cancellationTokenSource = null;
         }
     }
 }
