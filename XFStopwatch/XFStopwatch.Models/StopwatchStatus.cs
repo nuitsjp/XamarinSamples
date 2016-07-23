@@ -17,9 +17,5 @@
         /// 一時停止中
         /// </summary>
         Paused,
-        /// <summary>
-        /// 計測を一時停止している状態
-        /// </summary>
-        Waiting
     }
 }
