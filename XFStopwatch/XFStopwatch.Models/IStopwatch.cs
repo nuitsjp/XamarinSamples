@@ -11,7 +11,7 @@ namespace XFStopwatch.Models
         /// <summary>
         /// 経過時間を取得する
         /// </summary>
-        TimeSpan Elapsed { get; }
+        TimeSpan ElapsedTime { get; }
         /// <summary>
         /// 状態を取得する
         /// </summary>
@@ -19,11 +19,11 @@ namespace XFStopwatch.Models
         /// <summary>
         /// ラップタイムの一覧を取得する
         /// </summary>
-        ReadOnlyObservableCollection<TimeSpan> RapTimes { get; }
+        ReadOnlyObservableCollection<TimeSpan> LapTimes { get; }
         /// <summary>
         /// 経過時間更新イベント
         /// </summary>
-        event EventHandler ElapsedChanged;
+        event EventHandler ElapsedTimeChanged;
         /// <summary>
         /// 状態更新イベント
         /// </summary>
@@ -43,7 +43,7 @@ namespace XFStopwatch.Models
         /// <see cref="Status"/>が計測中状態の場合にラップタイムを取得する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
-        void Rap();
+        void Lap();
         /// <summary>
         /// 計測を一時停止状態へ変更する
         /// </summary>
@@ -51,7 +51,7 @@ namespace XFStopwatch.Models
         /// <see cref="Status"/>が計測中状態の場合に一時停止状態へ変更する。
         /// それ以外の状態の場合、何も行わない。
         /// </remarks>
-        void Stop();
+        void Pause();
         /// <summary>
         /// 計測を停止する
         /// </summary>
