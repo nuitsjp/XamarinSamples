@@ -266,5 +266,102 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(TimeSpan.FromSeconds(2), stopwatch.MeasurementResults[0].LapTimes[1]);// 2件目のラップタイムが2秒であること
             Assert.AreEqual(TimeSpan.FromSeconds(3), stopwatch.MeasurementResults[0].LapTimes[2]);// 3件目のラップタイムが3秒であること
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void StartInTheRunningTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            stopwatch.Start();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void LapInTheStopedTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Lap();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void LapInThePausedTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            stopwatch.Pause();
+            stopwatch.Lap();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PauseInTheStopedTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Pause();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PauseInThePauseTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            stopwatch.Pause();
+            stopwatch.Pause();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResetInTheStopedTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Reset();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ResetInTheRunningTest()
+        {
+            var mockTimerService = new Mock<ITimerService>();
+            ServiceLocator.Register(mockTimerService.Object);
+            var mockTimeService = new Mock<ITimeService>();
+            ServiceLocator.Register(mockTimeService.Object);
+            IStopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            stopwatch.Reset();
+        }
     }
 }

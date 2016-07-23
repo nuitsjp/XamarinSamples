@@ -133,6 +133,10 @@ namespace XFStopwatch.Models
                 Status = StopwatchStatus.Running;
                 _timerService.Start();
             }
+            else
+            {
+                throw new InvalidOperationException($"Stopwatch status is {Status}.");
+            }
         }
 
         /// <summary>
@@ -140,29 +144,50 @@ namespace XFStopwatch.Models
         /// </summary>
         public void Lap()
         {
-            var now = _timeService.Now;
-            _lapTimes.Add(now - _previousLapDateTime);
-            _previousLapDateTime = now;
+            if (Status == StopwatchStatus.Running)
+            {
+                var now = _timeService.Now;
+                _lapTimes.Add(now - _previousLapDateTime);
+                _previousLapDateTime = now;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Stopwatch status is {Status}.");
+            }
         }
         /// <summary>
         /// 計測を一時停止する
         /// </summary>
         public void Pause()
         {
-            _timerService.Stop();
-            _storedTime += _timeService.Now - _restertDateTime;
-            ElapsedTime = _storedTime;
-            Status = StopwatchStatus.Paused;
+            if (Status == StopwatchStatus.Running)
+            {
+                _timerService.Stop();
+                _storedTime += _timeService.Now - _restertDateTime;
+                ElapsedTime = _storedTime;
+                Status = StopwatchStatus.Paused;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Stopwatch status is {Status}.");
+            }
         }
         /// <summary>
         /// 計測を終了し、計測結果を履歴に保存する
         /// </summary>
         public void Reset()
         {
-            Status = StopwatchStatus.Stoped;
-            _measurementResult.Add(
-                new MeasurementResult(BeginDateTime, ElapsedTime, _lapTimes));
-            _lapTimes.Clear();
+            if (Status == StopwatchStatus.Paused)
+            {
+                Status = StopwatchStatus.Stoped;
+                _measurementResult.Add(
+                    new MeasurementResult(BeginDateTime, ElapsedTime, _lapTimes));
+                _lapTimes.Clear();
+            }
+            else
+            {
+                throw new InvalidOperationException($"Stopwatch status is {Status}.");
+            }
         }
     }
 }
