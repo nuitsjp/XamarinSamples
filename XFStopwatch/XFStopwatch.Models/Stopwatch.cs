@@ -47,7 +47,7 @@ namespace XFStopwatch.Models
         private readonly ObservableCollection<MeasurementResult> _measurementResult = new ObservableCollection<MeasurementResult>();
 
         /// <summary>
-        /// 計測開始時刻
+        /// 計測開始時刻を取得・設定する
         /// </summary>
         public DateTime BeginDateTime { get; private set; }
         /// <summary>
@@ -81,8 +81,13 @@ namespace XFStopwatch.Models
                 }
             }
         }
-
+        /// <summary>
+        /// ラップタイムを取得する
+        /// </summary>
         public ReadOnlyObservableCollection<TimeSpan> LapTimes { get; }
+        /// <summary>
+        /// 計測履歴を取得する
+        /// </summary>
         public ReadOnlyObservableCollection<MeasurementResult> MeasurementResults { get; }
 
         /// <summary>
@@ -108,7 +113,9 @@ namespace XFStopwatch.Models
             LapTimes = new ReadOnlyObservableCollection<TimeSpan>(_lapTimes);
             MeasurementResults = new ReadOnlyObservableCollection<MeasurementResult>(_measurementResult);
         }
-
+        /// <summary>
+        /// 計測を開始する
+        /// </summary>
         public void Start()
         {
             if (Status == StopwatchStatus.Stoped)
@@ -128,13 +135,18 @@ namespace XFStopwatch.Models
             }
         }
 
+        /// <summary>
+        /// ラップタイムを取得する
+        /// </summary>
         public void Lap()
         {
             var now = _timeService.Now;
             _lapTimes.Add(now - _previousLapDateTime);
             _previousLapDateTime = now;
         }
-
+        /// <summary>
+        /// 計測を一時停止する
+        /// </summary>
         public void Pause()
         {
             _timerService.Stop();
@@ -142,7 +154,9 @@ namespace XFStopwatch.Models
             ElapsedTime = _storedTime;
             Status = StopwatchStatus.Paused;
         }
-
+        /// <summary>
+        /// 計測を終了し、計測結果を履歴に保存する
+        /// </summary>
         public void Reset()
         {
             Status = StopwatchStatus.Stoped;
