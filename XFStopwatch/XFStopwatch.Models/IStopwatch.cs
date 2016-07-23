@@ -8,6 +8,7 @@ namespace XFStopwatch.Models
     /// </summary>
     public interface IStopwatch
     {
+        DateTime BeginDateTime { get; }
         /// <summary>
         /// 経過時間を取得する
         /// </summary>
@@ -20,6 +21,7 @@ namespace XFStopwatch.Models
         /// ラップタイムの一覧を取得する
         /// </summary>
         ReadOnlyObservableCollection<TimeSpan> LapTimes { get; }
+        ReadOnlyObservableCollection<MeasurementResult> MeasurementResults { get; }
         /// <summary>
         /// 経過時間更新イベント
         /// </summary>

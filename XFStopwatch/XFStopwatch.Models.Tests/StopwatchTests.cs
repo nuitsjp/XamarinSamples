@@ -56,7 +56,7 @@ namespace XFStopwatch.Models.Tests
             var mockTimeService = new Mock<ITimeService>();
             ServiceLocator.Register(mockTimeService.Object);
 
-            var stopwatch = new Stopwatch();
+            IStopwatch stopwatch = new Stopwatch();
 
             var beginDateTime = DateTime.Parse("2000/01/01");           // 開始日時
             mockTimeService.Setup(m => m.Now).Returns(beginDateTime);   // TimeServiceが開始日時を返却yするように設定
@@ -196,7 +196,7 @@ namespace XFStopwatch.Models.Tests
             var mockTimeService = new Mock<ITimeService>();
             ServiceLocator.Register(mockTimeService.Object);
 
-            var stopwatch = new Stopwatch();
+            IStopwatch stopwatch = new Stopwatch();
 
             var now = DateTime.Parse("2000/01/01");                         // 開始日時
             mockTimeService.Setup(m => m.Now).Returns(now);                 // TimeServiceが開始日時を返却yするように設定
