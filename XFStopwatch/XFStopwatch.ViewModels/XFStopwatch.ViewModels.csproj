@@ -1,15 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E2870FFD-0B13-4B71-BCA9-C3151031C1AB}</ProjectGuid>
+    <ProjectGuid>{cc9e447a-63eb-4893-85a1-0a0e4e0e9956}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XFStopwatch.Models</RootNamespace>
-    <AssemblyName>XFStopwatch.Models</AssemblyName>
+    <RootNamespace>XFStopwatch.ViewModels</RootNamespace>
+    <AssemblyName>XFStopwatch.ViewModels</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,22 +35,10 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\XFStopwatch\XFStopwatch\XFStopwatch.csproj">
-      <Project>{fed73dd0-74b5-43c1-8db0-66f9eaef5794}</Project>
-      <Name>XFStopwatch</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IStopwatch.cs" />
-    <Compile Include="ITimerService.cs" />
-    <Compile Include="ITimeService.cs" />
-    <Compile Include="LapTime.cs" />
-    <Compile Include="MeasurementResult.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stopwatch.cs" />
-    <Compile Include="StopwatchStatus.cs" />
-    <Compile Include="TimerService.cs" />
-    <Compile Include="TimeService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -60,4 +48,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+
 </Project>

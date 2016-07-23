@@ -73,7 +73,6 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(0, notifiedElapsedTimeChangedCount);        // 時間経過通知が発生していないこと
             Assert.AreEqual(1, notifiedStatusChangedCount);             // ステータス変更通知が発生していること
             Assert.AreEqual(StopwatchStatus.Running, stopwatch.Status); // 状態が計測中に変更されていること
-            Assert.AreEqual(beginDateTime, stopwatch.BeginDateTime);    // 開始日時が設定されていること
             Assert.AreEqual(TimeSpan.Zero, stopwatch.ElapsedTime);      // 経過時間が0であること
             Assert.AreEqual(0, stopwatch.LapTimes.Count);               // ラップタイムの件数が0件であること
             mockTimerService.Verify(m => m.Start());                    // TimerServiceのStartが呼び出されていること
@@ -105,7 +104,6 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(2, notifiedElapsedTimeChangedCount);        // 時間経過通知が発生していないこと
             Assert.AreEqual(2, notifiedStatusChangedCount);             // ステータス変更通知が発生していること
             Assert.AreEqual(StopwatchStatus.Paused, stopwatch.Status);  // 状態が計測中に変更されていること
-            Assert.AreEqual(beginDateTime, stopwatch.BeginDateTime);    // 開始日時が変更されていないこと
             Assert.AreEqual(elapsedTimeSpan, stopwatch.ElapsedTime);    // 経過時間が2秒であること
             Assert.AreEqual(0, stopwatch.LapTimes.Count);               // ラップタイムの件数が0件であること
             mockTimerService.Verify(m => m.Stop());                     // TimeServiceの停止が呼び出されていること
@@ -124,7 +122,6 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(2, notifiedElapsedTimeChangedCount);        // 時間経過通知が発生していないこと
             Assert.AreEqual(3, notifiedStatusChangedCount);             // ステータス変更通知が発生していること
             Assert.AreEqual(StopwatchStatus.Running, stopwatch.Status); // 状態が計測中に変更されていること
-            Assert.AreEqual(beginDateTime, stopwatch.BeginDateTime);    // 開始日時が変更されていないこと
             Assert.AreEqual(elapsedTimeSpan, stopwatch.ElapsedTime);    // 経過時間が2秒であること
             Assert.AreEqual(0, stopwatch.LapTimes.Count);               // ラップタイムの件数が0件であること
             mockTimerService.Verify(m => m.Start());                    // TimerServiceのStartが呼び出されていること
@@ -155,7 +152,6 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(4, notifiedElapsedTimeChangedCount);        // 時間経過通知が発生していないこと
             Assert.AreEqual(4, notifiedStatusChangedCount);             // ステータス変更通知が発生していること
             Assert.AreEqual(StopwatchStatus.Paused, stopwatch.Status);  // 状態が計測中に変更されていること
-            Assert.AreEqual(beginDateTime, stopwatch.BeginDateTime);    // 開始日時が変更されていないこと
             Assert.AreEqual(
                 TimeSpan.FromSeconds(4), stopwatch.ElapsedTime);        // 経過時間が4秒であること
             Assert.AreEqual(0, stopwatch.LapTimes.Count);               // ラップタイムの件数が0件であること
@@ -168,7 +164,6 @@ namespace XFStopwatch.Models.Tests
             Assert.AreEqual(4, notifiedElapsedTimeChangedCount);        // 時間経過通知が発生していないこと
             Assert.AreEqual(5, notifiedStatusChangedCount);             // ステータス変更通知が発生していること
             Assert.AreEqual(StopwatchStatus.Stoped, stopwatch.Status);  // 状態が計測中に変更されていること
-            Assert.AreEqual(beginDateTime, stopwatch.BeginDateTime);    // 開始日時が変更されていないこと
             Assert.AreEqual(
                 TimeSpan.FromSeconds(4), stopwatch.ElapsedTime);        // 経過時間が4秒であること
             Assert.AreEqual(0, stopwatch.LapTimes.Count);               // ラップタイムの件数が0件であること
@@ -214,18 +209,24 @@ namespace XFStopwatch.Models.Tests
             mockTimeService.Setup(m => m.Now).Returns(now);
             stopwatch.Lap();
             Assert.AreEqual(1, stopwatch.LapTimes.Count);                   // ラップタイムの件数が1件であること
-            Assert.AreEqual(TimeSpan.FromSeconds(1), stopwatch.LapTimes[0]);// 1件目のラップタイムが1秒であること
+            Assert.AreEqual(1, stopwatch.LapTimes[0].No);                   // 1件目のNoが1であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(1), stopwatch.LapTimes[0].ElapsedTime);// 1件目のラップタイムが1秒であること
             Assert.AreEqual(StopwatchStatus.Running, stopwatch.Status);     // 状態が計測中のままであること
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
             // 3. Lap
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
-            now += TimeSpan.FromSeconds(2);                                 // 2秒経過させる
+            now += TimeSpan.FromSeconds(3);                                 // 3秒経過させる
             mockTimeService.Setup(m => m.Now).Returns(now);
             stopwatch.Lap();
             Assert.AreEqual(2, stopwatch.LapTimes.Count);                   // ラップタイムの件数が2件であること
-            Assert.AreEqual(TimeSpan.FromSeconds(1), stopwatch.LapTimes[0]);// 1件目のラップタイムが1秒であること
-            Assert.AreEqual(TimeSpan.FromSeconds(2), stopwatch.LapTimes[1]);// 2件目のラップタイムが2秒であること
+            Assert.AreEqual(1, stopwatch.LapTimes[0].No);                   // 1件目のNoが1であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(1), stopwatch.LapTimes[0].ElapsedTime);// 1件目のラップタイムが1秒であること
+            Assert.AreEqual(2, stopwatch.LapTimes[1].No);                   // 2件目のNoが2であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(3), stopwatch.LapTimes[1].ElapsedTime);// 2件目のラップタイムが3秒であること
             Assert.AreEqual(StopwatchStatus.Running, stopwatch.Status);     // 状態が計測中のままであること
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -241,13 +242,19 @@ namespace XFStopwatch.Models.Tests
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
             // 6. Lap
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
-            now += TimeSpan.FromSeconds(3);                                 // 3秒経過させる
+            now += TimeSpan.FromSeconds(2);                                 // 2秒経過させる
             mockTimeService.Setup(m => m.Now).Returns(now);
             stopwatch.Lap();
             Assert.AreEqual(3, stopwatch.LapTimes.Count);                   // ラップタイムの件数が3件であること
-            Assert.AreEqual(TimeSpan.FromSeconds(1), stopwatch.LapTimes[0]);// 1件目のラップタイムが1秒であること
-            Assert.AreEqual(TimeSpan.FromSeconds(2), stopwatch.LapTimes[1]);// 2件目のラップタイムが2秒であること
-            Assert.AreEqual(TimeSpan.FromSeconds(3), stopwatch.LapTimes[2]);// 3件目のラップタイムが3秒であること
+            Assert.AreEqual(1, stopwatch.LapTimes[0].No);                   // 1件目のNoが1であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(1), stopwatch.LapTimes[0].ElapsedTime);// 1件目のラップタイムが1秒であること
+            Assert.AreEqual(2, stopwatch.LapTimes[1].No);                   // 2件目のNoが2であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(3), stopwatch.LapTimes[1].ElapsedTime);// 2件目のラップタイムが3秒であること
+            Assert.AreEqual(3, stopwatch.LapTimes[2].No);                   // 3件目のNoが3であること
+            Assert.AreEqual(
+                TimeSpan.FromSeconds(2), stopwatch.LapTimes[2].ElapsedTime);// 3件目のラップタイムが2秒であること
             Assert.AreEqual(StopwatchStatus.Running, stopwatch.Status);     // 状態が計測中のままであること
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -257,14 +264,6 @@ namespace XFStopwatch.Models.Tests
             stopwatch.Pause();
             stopwatch.Reset();
             Assert.AreEqual(0, stopwatch.LapTimes.Count);                   // ラップタイムの件数が0件であること
-            Assert.AreEqual(1, stopwatch.MeasurementResults.Count);         // 計測結果履歴が1件になっていること
-            Assert.AreEqual(
-                DateTime.Parse("2000/01/01"), 
-                stopwatch.MeasurementResults[0].BeginDateTime);             // 開始日時がStart日時と一致すること
-            Assert.AreEqual(TimeSpan.FromSeconds(6), stopwatch.MeasurementResults[0].ElapsedTime);// 経過日時が6秒（ラップの総和）であること
-            Assert.AreEqual(TimeSpan.FromSeconds(1), stopwatch.MeasurementResults[0].LapTimes[0]);// 1件目のラップタイムが1秒であること
-            Assert.AreEqual(TimeSpan.FromSeconds(2), stopwatch.MeasurementResults[0].LapTimes[1]);// 2件目のラップタイムが2秒であること
-            Assert.AreEqual(TimeSpan.FromSeconds(3), stopwatch.MeasurementResults[0].LapTimes[2]);// 3件目のラップタイムが3秒であること
         }
 
         [TestMethod]

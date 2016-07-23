@@ -14,17 +14,17 @@ namespace XFStopwatch.Models
         /// </summary>
         private readonly ITimerService _timerService;
         /// <summary>
-        /// 直前のラップタイム計測日時
-        /// </summary>
-        private DateTime _previousLapDateTime;
-        /// <summary>
-        /// 計測再開時刻
+        /// 計測開時刻
         /// </summary>
         /// <remarks>
         /// 開始->停止->開始とした場合に、トータルの経過時刻を計算するために最後に再開（もしくは開始）
         /// した時間を保持しておく
         /// </remarks>
-        private DateTime _restertDateTime;
+        private DateTime _beginDateTime;
+        /// <summary>
+        /// 直前のラップタイム計測日時
+        /// </summary>
+        private DateTime _previousLapDateTime;
         /// <summary>
         /// 一時停止から再開した際の、再開前の経過時間
         /// </summary>
@@ -40,23 +40,15 @@ namespace XFStopwatch.Models
         /// <summary>
         /// ラップタイム
         /// </summary>
-        private readonly ObservableCollection<TimeSpan> _lapTimes = new ObservableCollection<TimeSpan>();
-        /// <summary>
-        /// 計測結果履歴
-        /// </summary>
-        private readonly ObservableCollection<MeasurementResult> _measurementResult = new ObservableCollection<MeasurementResult>();
+        private readonly ObservableCollection<LapTime> _lapTimes = new ObservableCollection<LapTime>();
 
-        /// <summary>
-        /// 計測開始時刻を取得・設定する
-        /// </summary>
-        public DateTime BeginDateTime { get; private set; }
         /// <summary>
         /// 経過時間を取得・設定する
         /// </summary>
         public TimeSpan ElapsedTime
         {
             get { return _elapsedTime; }
-            set
+            private set
             {
                 if (_elapsedTime != value)
                 {
@@ -72,7 +64,7 @@ namespace XFStopwatch.Models
         public StopwatchStatus Status
         {
             get { return _status; }
-            set
+            private set
             {
                 if (_status != value)
                 {
@@ -84,11 +76,7 @@ namespace XFStopwatch.Models
         /// <summary>
         /// ラップタイムを取得する
         /// </summary>
-        public ReadOnlyObservableCollection<TimeSpan> LapTimes { get; }
-        /// <summary>
-        /// 計測履歴を取得する
-        /// </summary>
-        public ReadOnlyObservableCollection<MeasurementResult> MeasurementResults { get; }
+        public ReadOnlyObservableCollection<LapTime> LapTimes { get; }
 
         /// <summary>
         /// 経過時間変更イベント
@@ -108,10 +96,9 @@ namespace XFStopwatch.Models
             _timerService = ServiceLocator.Locate<ITimerService>();
             _timerService.Elapsed += (sender, e) =>
             {
-                ElapsedTime = _timeService.Now - _restertDateTime + _storedTime;
+                ElapsedTime = _timeService.Now - _beginDateTime + _storedTime;
             };
-            LapTimes = new ReadOnlyObservableCollection<TimeSpan>(_lapTimes);
-            MeasurementResults = new ReadOnlyObservableCollection<MeasurementResult>(_measurementResult);
+            LapTimes = new ReadOnlyObservableCollection<LapTime>(_lapTimes);
         }
         /// <summary>
         /// 計測を開始する
@@ -120,16 +107,15 @@ namespace XFStopwatch.Models
         {
             if (Status == StopwatchStatus.Stoped)
             {
-                BeginDateTime = _timeService.Now;
-                _restertDateTime = BeginDateTime;
-                _previousLapDateTime = _restertDateTime;
+                _beginDateTime = _timeService.Now;
+                _previousLapDateTime = _beginDateTime;
                 Status = StopwatchStatus.Running;
                 _timerService.Start();
             }
             else if(Status == StopwatchStatus.Paused)
             {
-                _restertDateTime = _timeService.Now;
-                _previousLapDateTime = _restertDateTime;
+                _beginDateTime = _timeService.Now;
+                _previousLapDateTime = _beginDateTime;
                 Status = StopwatchStatus.Running;
                 _timerService.Start();
             }
@@ -147,7 +133,8 @@ namespace XFStopwatch.Models
             if (Status == StopwatchStatus.Running)
             {
                 var now = _timeService.Now;
-                _lapTimes.Add(now - _previousLapDateTime);
+                var elapsedTime = now - _previousLapDateTime;
+                _lapTimes.Add(new LapTime(_lapTimes.Count + 1, elapsedTime));
                 _previousLapDateTime = now;
             }
             else
@@ -163,7 +150,7 @@ namespace XFStopwatch.Models
             if (Status == StopwatchStatus.Running)
             {
                 _timerService.Stop();
-                _storedTime += _timeService.Now - _restertDateTime;
+                _storedTime += _timeService.Now - _beginDateTime;
                 ElapsedTime = _storedTime;
                 Status = StopwatchStatus.Paused;
             }
@@ -180,8 +167,6 @@ namespace XFStopwatch.Models
             if (Status == StopwatchStatus.Paused)
             {
                 Status = StopwatchStatus.Stoped;
-                _measurementResult.Add(
-                    new MeasurementResult(BeginDateTime, ElapsedTime, _lapTimes));
                 _lapTimes.Clear();
             }
             else
