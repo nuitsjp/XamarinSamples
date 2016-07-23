@@ -1,11 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Xamarin.Forms;
 
-namespace XFStopwatch
+namespace XFStopwatch.Views
 {
     public class App : Application
     {

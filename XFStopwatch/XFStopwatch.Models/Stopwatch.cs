@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace XFStopwatch.Models
 {
@@ -49,11 +45,11 @@ namespace XFStopwatch.Models
         /// 計測結果履歴
         /// </summary>
         private readonly ObservableCollection<MeasurementResult> _measurementResult = new ObservableCollection<MeasurementResult>();
+
         /// <summary>
         /// 計測開始時刻
         /// </summary>
         public DateTime BeginDateTime { get; private set; }
-
         /// <summary>
         /// 経過時間を取得・設定する
         /// </summary>
@@ -88,8 +84,19 @@ namespace XFStopwatch.Models
 
         public ReadOnlyObservableCollection<TimeSpan> LapTimes { get; }
         public ReadOnlyObservableCollection<MeasurementResult> MeasurementResults { get; }
+
+        /// <summary>
+        /// 経過時間変更イベント
+        /// </summary>
         public event EventHandler ElapsedTimeChanged;
+        /// <summary>
+        /// 状態変更イベント
+        /// </summary>
         public event EventHandler StatusChanged;
+
+        /// <summary>
+        /// インスタンスを初期化する
+        /// </summary>
         public Stopwatch()
         {
             _timeService = ServiceLocator.Locate<ITimeService>();
@@ -101,7 +108,6 @@ namespace XFStopwatch.Models
             LapTimes = new ReadOnlyObservableCollection<TimeSpan>(_lapTimes);
             MeasurementResults = new ReadOnlyObservableCollection<MeasurementResult>(_measurementResult);
         }
-
 
         public void Start()
         {
