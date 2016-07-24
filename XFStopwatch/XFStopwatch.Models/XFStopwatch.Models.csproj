@@ -45,7 +45,6 @@
     <Compile Include="ITimerService.cs" />
     <Compile Include="ITimeService.cs" />
     <Compile Include="LapTime.cs" />
-    <Compile Include="MeasurementResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stopwatch.cs" />
     <Compile Include="StopwatchStatus.cs" />
