@@ -35,6 +35,14 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <ProjectReference Include="..\XFStopwatch.Models\XFStopwatch.Models.csproj">
+      <Project>{e2870ffd-0b13-4b71-bca9-c3151031c1ab}</Project>
+      <Name>XFStopwatch.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XFStopwatch\XFStopwatch\XFStopwatch.csproj">
+      <Project>{fed73dd0-74b5-43c1-8db0-66f9eaef5794}</Project>
+      <Name>XFStopwatch</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainPageViewModel.cs" />
