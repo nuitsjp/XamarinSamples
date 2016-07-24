@@ -11,7 +11,7 @@ namespace XFStopwatch.ViewModels
 {
     public class MainPageViewModel : BindableBase
     {
-        private readonly IStopwatch _stopwatch;
+        private readonly IStopwatch _stopwatch = ServiceLocator.Locate<IStopwatch>();
         public TimeSpan ElapsedTime { get; }
         public StopwatchStatus Status { get; }
         public ReadOnlyObservableCollection<LapTime> LapTimes { get; }
@@ -19,9 +19,8 @@ namespace XFStopwatch.ViewModels
         public ICommand PauseOrResetCommand { get; }
         public ICommand NavigationDetailCommand { get; }
 
-        public MainPageViewModel(IStopwatch stopwatch)
+        public MainPageViewModel()
         {
-            _stopwatch = stopwatch;
             ElapsedTime = _stopwatch.ElapsedTime;
             Status = _stopwatch.Status;
             LapTimes = new ReadOnlyObservableCollection<LapTime>(new ObservableCollection<LapTime>(_stopwatch.LapTimes));
@@ -42,7 +41,7 @@ namespace XFStopwatch.ViewModels
 
         private bool CanPauseOrResetCommandExecute()
         {
-            return true;
+            return Status != StopwatchStatus.Stoped;
         }
     }
 }

@@ -13,6 +13,7 @@ namespace XFStopwatch.ViewModels.Tests
         public void MainPageViewModelTest()
         {
             var stopwatch = new Mock<IStopwatch>();
+            ServiceLocator.Register(stopwatch.Object);
 
             var elapsedTime = TimeSpan.FromSeconds(100);
             stopwatch.Setup(m => m.ElapsedTime).Returns(elapsedTime);
@@ -24,7 +25,7 @@ namespace XFStopwatch.ViewModels.Tests
             var lapTimes = new ReadOnlyObservableCollection<LapTime>(new ObservableCollection<LapTime> { lapTime });
             stopwatch.Setup(m => m.LapTimes).Returns(lapTimes);
 
-            var viewModel = new MainPageViewModel(stopwatch.Object);
+            var viewModel = new MainPageViewModel();
 
 
             Assert.AreEqual(elapsedTime, viewModel.ElapsedTime);
@@ -39,7 +40,7 @@ namespace XFStopwatch.ViewModels.Tests
             stopwatch.Verify(m => m.Start());
 
             Assert.IsNotNull(viewModel.PauseOrResetCommand);
-            Assert.IsFalse(viewModel.PauseOrResetCommand.CanExecute(null));
+            Assert.IsTrue(viewModel.PauseOrResetCommand.CanExecute(null));
 
         }
     }
