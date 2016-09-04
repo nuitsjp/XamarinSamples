@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace XFormsEventToCommand
 {
@@ -28,33 +29,10 @@ namespace XFormsEventToCommand
 
         public MainPageViewModel()
         {
-            AppearingCommand = new RelayCommand(() =>
+            AppearingCommand = new Command(() =>
             {
                 Message = "Executed AppearingCommand!";
             });
-        }
-
-
-        public class RelayCommand : ICommand
-        {
-            public event EventHandler CanExecuteChanged;
-
-            private Action execute;
-
-            public RelayCommand(Action execute)
-            {
-                this.execute = execute;
-            }
-
-            public bool CanExecute(object parameter)
-            {
-                return true;
-            }
-
-            public void Execute(object parameter)
-            {
-                execute();
-            }
         }
     }
 

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XFormsEventToCommand.Droid", "XFormsEventToCommand\XFormsEventToCommand.Droid\XFormsEventToCommand.Droid.csproj", "{A468B46F-0B87-44DC-BA1F-0CAEA5C080C7}"
 EndProject
@@ -186,6 +186,8 @@ Global
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|ARM.Build.0 = Debug|ARM
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|ARM.Deploy.0 = Debug|ARM
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|iPhone.ActiveCfg = Debug|x86
+		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|iPhone.Build.0 = Debug|x86
+		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|iPhone.Deploy.0 = Debug|x86
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|iPhoneSimulator.ActiveCfg = Debug|x86
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|x64.ActiveCfg = Debug|x64
 		{3DD21E91-4E19-4571-8CD2-CF6A99294D57}.Debug|x64.Build.0 = Debug|x64
