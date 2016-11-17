@@ -39,16 +39,16 @@ namespace XFEmbeddSQLiteFile
                 const string databaseFileName = "sqlite.db3";
                 // ルートフォルダを取得する
                 IFolder rootFolder = FileSystem.Current.LocalStorage;
-                // DBファイルの存在チェックを行う
+                // ファイルシステム上のDBファイルの存在チェックを行う
                 var result = await rootFolder.CheckExistsAsync(databaseFileName);
                 if (result == ExistenceCheckResult.NotFound)
                 {
-                    // リソースからファイルを読み込む
+                    // 存在しなかった場合、新たに空のDBファイルを作成する
+                    var newFile = await rootFolder.CreateFileAsync(databaseFileName, CreationCollisionOption.ReplaceExisting);
+                    // Assemblyに埋め込んだDBファイルをストリームで取得し、空ファイルにコピーする
                     var assembly = typeof(App).GetTypeInfo().Assembly;
                     using (var stream = assembly.GetManifestResourceStream("XFEmbeddSQLiteFile.sqlite.db3"))
                     {
-                        // 存在しなかった場合、新たにDBファイルを作成しテーブルも併せて新規作成する
-                        var newFile = await rootFolder.CreateFileAsync(databaseFileName, CreationCollisionOption.ReplaceExisting);
                         using (var outputStream = await newFile.OpenAsync(FileAccess.ReadAndWrite))
                         {
                             stream.CopyTo(outputStream);
@@ -57,7 +57,7 @@ namespace XFEmbeddSQLiteFile
                     }
                 }
 
-                // 存在した場合、そのままコネクションを作成する
+                // ファイルからコネクションを作成しデータを取得する
                 var file = await rootFolder.CreateFileAsync(databaseFileName, CreationCollisionOption.OpenIfExists);
                 using (var connection = new SQLiteConnection(file.Path))
                 {
