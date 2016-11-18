@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OnBackButtonPressed.MainPage"
+             Title="Main Page">
+  <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+    <Button Text="Navigation Second" Clicked="Button_OnClicked"/>
+  </StackLayout>
+</ContentPage>
