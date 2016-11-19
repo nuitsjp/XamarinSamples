@@ -1,4 +1,5 @@
-﻿using OnBackButtonPressed.iOS;
+﻿using System.Threading.Tasks;
+using OnBackButtonPressed.iOS;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -13,16 +14,18 @@ namespace OnBackButtonPressed.iOS
             base.ViewWillAppear(animated);
 
             var page = Element as Page;
+            var navigationPage = page.Parent as NavigationPage;
             var root = this.NavigationController.TopViewController;
+            var title = NavigationPage.GetBackButtonTitle(page);
             // NOTE: this doesn't look exactly right, you need to create an image to replicate the back arrow properly
-            root.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem("< Back", UIBarButtonItemStyle.Plain, (sender, args) =>
+            root.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem($"< Back", UIBarButtonItemStyle.Plain, async (sender, args) =>
             {
                 var navPage = page.Parent as NavigationPage;
-                var vm = page.BindingContext as IConfirmBack;
+                var vm = page.BindingContext as IConfirmGoBack;
 
                 if (vm != null)
                 {
-                    if (vm.CanGoBack())
+                    if (await vm.CanGoBackAsync())
                         navPage.PopAsync();
                 }
                 else

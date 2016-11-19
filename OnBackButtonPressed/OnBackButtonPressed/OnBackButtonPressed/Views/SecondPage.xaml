@@ -2,13 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:onBackButtonPressed="clr-namespace:OnBackButtonPressed;assembly=OnBackButtonPressed"
-             x:Class="OnBackButtonPressed.SecondPage"
+             xmlns:viewModels="clr-namespace:OnBackButtonPressed.ViewModels;assembly=OnBackButtonPressed"
+             x:Class="OnBackButtonPressed.Views.SecondPage"
              Title="Second Page">
   <ContentPage.BindingContext>
-    <onBackButtonPressed:SecondPageViewModel/>
+    <viewModels:SecondPageViewModel/>
   </ContentPage.BindingContext>
   <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-    <Label Text="Can GoBack"></Label>
-    <Switch IsToggled="{Binding IsEnabled}"/>
+    <Button Text="Go Back" Clicked="Button_OnClicked"/>
+    <ActivityIndicator IsRunning="{Binding IsProcessing}" IsVisible="{Binding IsProcessing}"></ActivityIndicator>
   </StackLayout>
 </ContentPage>

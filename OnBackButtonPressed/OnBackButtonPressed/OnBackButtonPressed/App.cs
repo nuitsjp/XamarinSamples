@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using OnBackButtonPressed.Views;
 using Xamarin.Forms;
 
 namespace OnBackButtonPressed
@@ -11,7 +11,7 @@ namespace OnBackButtonPressed
     {
         public App()
         {
-            MainPage = new MyNavigationPage(new MainPage());
+            MainPage = new MyNavigationPage(new Views.MainPage());
         }
 
         protected override void OnStart()
