@@ -16,8 +16,6 @@ namespace OnBackButtonPressed.iOS
             var page = Element as Page;
             var navigationPage = page.Parent as NavigationPage;
             var root = this.NavigationController.TopViewController;
-            var title = NavigationPage.GetBackButtonTitle(page);
-            // NOTE: this doesn't look exactly right, you need to create an image to replicate the back arrow properly
             root.NavigationItem.SetLeftBarButtonItem(new UIBarButtonItem($"< Back", UIBarButtonItemStyle.Plain, async (sender, args) =>
             {
                 var navPage = page.Parent as NavigationPage;
