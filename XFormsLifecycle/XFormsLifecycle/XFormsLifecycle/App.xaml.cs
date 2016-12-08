@@ -23,12 +23,12 @@ namespace XFormsLifecycle
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            (MainPage.BindingContext as IApplicationLifecycle)?.OnSleep();
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            (MainPage.BindingContext as IApplicationLifecycle)?.OnResume();
         }
     }
 }
