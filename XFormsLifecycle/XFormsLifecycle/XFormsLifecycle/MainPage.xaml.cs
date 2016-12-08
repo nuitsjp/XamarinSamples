@@ -12,6 +12,7 @@ namespace XFormsLifecycle
         public MainPage()
         {
             InitializeComponent();
+            BindingContext = new MainPageViewModel();
         }
     }
 }
