@@ -6,5 +6,8 @@
   <ContentView.BindingContext>
     <local:MainPageViewModel/>
   </ContentView.BindingContext>
-  <ListView ItemsSource="{Binding Colors}" SelectedItem="{Binding SelectedColor}"/>
+  <StackLayout Orientation="Vertical">
+    <Button Text="Add Item" Command="{Binding AddItemCommand}"/>
+    <ListView ItemsSource="{Binding Items}"/>
+  </StackLayout>
 </ContentPage>

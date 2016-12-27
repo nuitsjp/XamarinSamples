@@ -1,18 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace ListViewSample
 {
     public class MainPageViewModel
     {
-        public IList<string> Colors { get; } = new List<string> { "Red", "Blue", "Green" };
-        private string _selectedColor;
-        public string SelectedColor
+        public ObservableCollection<string> Items { get; } = new ObservableCollection<string>();
+
+        public Command AddItemCommand => new Command(() =>
         {
-            set { _selectedColor = value; }
+            Items.Add($"Item{Items.Count}");
+        });
+
+        public MainPageViewModel()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                Items.Add($"Item{i}");
+            }
         }
     }
 }
