@@ -12,11 +12,16 @@ namespace XAndroidHideStatusBar
         {
             base.OnCreate(bundle);
 
-            RequestWindowFeature(WindowFeatures.NoTitle);
-            Window.AddFlags(WindowManagerFlags.Fullscreen);
-            Window.ClearFlags(WindowManagerFlags.ForceNotFullscreen);
+            var systemUiFlags = SystemUiFlags.LayoutStable
+                                | SystemUiFlags.LayoutHideNavigation
+                                | SystemUiFlags.LayoutFullscreen
+                                | SystemUiFlags.HideNavigation
+                                | SystemUiFlags.Fullscreen
+                                | SystemUiFlags.Immersive;
 
-            SetContentView (Resource.Layout.Main);
+            Window.DecorView.SystemUiVisibility = (StatusBarVisibility)(int)systemUiFlags;
+
+            SetContentView(Resource.Layout.Main);
         }
     }
 }
