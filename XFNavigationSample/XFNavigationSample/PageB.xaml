@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="XFNavigationSample.PageB">
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Button Text="Navigate PageB" Clicked="NavigateToPageB"/>
+        <Button Text="Navigate PageB by Modal" Clicked="NavigateToPageBByModel"/>
+        <Button Text="Navigate PageA by Modal" Clicked="NavigateToPageAByModal"/>
+        <Button Text="GoBack" Clicked="GoBackButton_OnClicked"/>
+    </StackLayout>
+</ContentPage>
