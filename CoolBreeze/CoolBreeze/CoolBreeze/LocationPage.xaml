@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="Location"
+             x:Class="CoolBreeze.LocationPage">
+
+    <StackLayout Margin="20" VerticalOptions="Start" HorizontalOptions="Center">
+
+        <Label FontSize="Medium" Text="Select the way you want to get weather information. If you select to use your current location, your device may prompt you for permission."/>
+
+        <StackLayout Margin="0,20,0,0" WidthRequest="300" HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+            <Label FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Text="Use my current location"/>
+            <Switch x:Name="useLocationToggle" HorizontalOptions="End" IsToggled="False" Margin="20,0,0,0" Toggled="UseLocationToggled" VerticalOptions="Center"/>
+        </StackLayout>
+
+        <StackLayout Margin="0,20,0,0" WidthRequest="300" HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+            <Label FontSize="Medium" HorizontalOptions="Start" VerticalOptions="Center" Text="Select a City:"/>
+            <Picker Title="Select a city" x:Name="cityPicker" SelectedIndexChanged="SelectedCityChanged" WidthRequest="300" HorizontalOptions="StartAndExpand">
+                <Picker.Items>
+                    <x:String>Amsterdam (NL)</x:String>
+                    <x:String>Atlanta (US)</x:String>
+                    <x:String>Buenos Aires (AR)</x:String>
+                    <x:String>Cairo (EG)</x:String>
+                    <x:String>Calgary (CA)</x:String>
+                    <x:String>Chicago (US)</x:String>
+                    <x:String>Dallas (US)</x:String>
+                    <x:String>Havana (CU)</x:String>
+                    <x:String>Houston (US)</x:String>
+                    <x:String>Las Vegas (US)</x:String>
+                    <x:String>London (GB)</x:String>
+                    <x:String>Los Angeles (US)</x:String>
+                    <x:String>Manhattan (US)</x:String>
+                    <x:String>San Diego (US)</x:String>
+                    <x:String>Seattle (US)</x:String>
+                </Picker.Items>
+            </Picker>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

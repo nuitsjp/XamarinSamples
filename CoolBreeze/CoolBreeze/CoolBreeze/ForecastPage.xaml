@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" Title="{Binding CurrentConditions.DisplayName}"
+             x:Class="CoolBreeze.ForecastPage">
+
+    <Grid>
+        <ListView Margin="40" ItemsSource="{Binding Forecast}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image VerticalOptions="Center" Aspect="AspectFit" HeightRequest="40" WidthRequest="40" Source="{Binding Icon, Converter={StaticResource IconToUrlConverter}}" />
+                            <Label VerticalOptions="Center" FontSize="Micro" Text="{Binding TimeStamp, Converter={StaticResource ForecastTimeLabelConverter}}" />
+                            <Label FontSize="Medium" VerticalOptions="Center" Text="{Binding Conditions}" />
+                            <Label VerticalOptions="Center" Text="{Binding MaxTemperaturem, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=°}" />
+                            <Label FontSize="Small" VerticalOptions="Center" Text="HUMIDITY: "/>
+                            <Label FontSize="Small" VerticalOptions="Center" Text="{Binding Humidity, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=%}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ActivityIndicator Color="{StaticResource AppAccentColor}" VerticalOptions="Center" HorizontalOptions="Center" IsRunning="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double" iOS="100" Android="100" WinPhone="400" />
+            </ActivityIndicator.WidthRequest>
+        </ActivityIndicator>
+    </Grid>
+</ContentPage>

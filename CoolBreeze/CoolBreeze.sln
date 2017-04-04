@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoolBreeze.Android", "CoolBreeze\CoolBreeze.Android\CoolBreeze.Android.csproj", "{9DE18C70-9CE5-4492-ADE5-9C0D5676BF59}"
 EndProject
@@ -237,8 +237,8 @@ Global
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.AppStore|x64.ActiveCfg = AppStore|iPhone
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.AppStore|x86.ActiveCfg = AppStore|iPhone
-		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|Any CPU.ActiveCfg = Debug|iPhone
-		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|Any CPU.Build.0 = Debug|iPhone
+		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|ARM.ActiveCfg = Debug|iPhone
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{5381BB73-BC5B-4011-AF1E-5D40D9254F27}.Debug|iPhone.Build.0 = Debug|iPhone

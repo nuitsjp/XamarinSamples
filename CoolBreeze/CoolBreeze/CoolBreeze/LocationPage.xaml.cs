@@ -8,24 +8,39 @@ using Xamarin.Forms;
 
 namespace CoolBreeze
 {
-    public partial class MainPage : ContentPage
+    public partial class LocationPage : ContentPage
     {
-        public MainPage()
+        public LocationPage()
         {
             InitializeComponent();
         }
 
         protected override void OnAppearing()
         {
-            this.BindingContext = App.ViewModel;
-            if (App.ViewModel.NeedsRefresh) App.ViewModel.RefreshCurrentConditionsAsync();
+            if (cityPicker.SelectedIndex < 0) cityPicker.SelectedIndex = 0;
             base.OnAppearing();
+        }
+
+        private void UseLocationToggled(object sender, ToggledEventArgs e)
+        {
+            App.ViewModel.NeedsRefresh = true;
+
+            if (e.Value)
+            {
+                App.ViewModel.LocationType = Common.LocationType.Location;
+            }
+            else
+            {
+                App.ViewModel.LocationType = Common.LocationType.City;
+            }
         }
 
         private void SelectedCityChanged(object sender, EventArgs e)
         {
             if (!App.ViewModel.IsBusy)
             {
+                useLocationToggle.IsToggled = false;
+
                 App.ViewModel.NeedsRefresh = true;
                 App.ViewModel.LocationType = Common.LocationType.City;
 
@@ -36,11 +51,9 @@ namespace CoolBreeze
 
                 App.ViewModel.CityName = cityName;
                 App.ViewModel.CountryCode = countryCode;
-
-                App.ViewModel.RefreshCurrentConditionsAsync();
             }
+
+            App.ViewModel.IsBusy = false;
         }
-
-
     }
 }
