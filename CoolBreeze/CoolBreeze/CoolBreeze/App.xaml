@@ -1,10 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:common="clr-namespace:CoolBreeze.Common;assembly=CoolBreeze" 
              x:Class="CoolBreeze.App">
-	<Application.Resources>
+    <Application.Resources>
+        <ResourceDictionary>
 
-		<!-- Application resource dictionary -->
+            <common:IconToUrlConverter  x:Key="IconToUrlConverter"/>
+            <common:BooleanToFalseConverter  x:Key="BooleanToFalseConverter"/>
+            <common:ZeroToPlaceholderConverter  x:Key="ZeroToPlaceholderConverter"/>
+            <common:UpdatedLabelConverter  x:Key="UpdatedLabelConverter"/>
+            <common:ForecastTimeLabelConverter  x:Key="ForecastTimeLabelConverter"/>
+            <common:CharacterLabelConverter  x:Key="CharacterLabelConverter"/>
 
-	</Application.Resources>
+            <Color x:Key="AppBaseColor">#003366</Color>
+            <Color x:Key="AppAccentColor">#00BFFF</Color>
+
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

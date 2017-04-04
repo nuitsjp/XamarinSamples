@@ -1,11 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:CoolBreeze"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+            Title="Now"
              x:Class="CoolBreeze.MainPage">
 
-	<Label Text="Welcome to Xamarin Forms!" 
-           VerticalOptions="Center" 
-           HorizontalOptions="Center" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Picker Margin="0,60,0,20" HorizontalOptions="Center" VerticalOptions="Start" Title="Select a city" x:Name="cityPicker" SelectedIndexChanged="SelectedCityChanged" WidthRequest="300">
+            <Picker.Items>
+                <x:String>Amsterdam (NL)</x:String>
+                <x:String>Atlanta (US)</x:String>
+                <x:String>Buenos Aires (AR)</x:String>
+                <x:String>Cairo (EG)</x:String>
+                <x:String>Calgary (CA)</x:String>
+                <x:String>Chicago (US)</x:String>
+                <x:String>Dallas (US)</x:String>
+                <x:String>Havana (CU)</x:String>
+                <x:String>Houston (US)</x:String>
+                <x:String>Las Vegas (US)</x:String>
+                <x:String>London (GB)</x:String>
+                <x:String>Los Angeles (US)</x:String>
+                <x:String>Manhattan (US)</x:String>
+                <x:String>San Diego (US)</x:String>
+                <x:String>Seattle (US)</x:String>
+
+            </Picker.Items>
+        </Picker>
+
+
+        <StackLayout Grid.Row="1" BindingContext="{Binding}" HorizontalOptions="Center" VerticalOptions="Start" Orientation="Horizontal">
+            <Image VerticalOptions="Center" HorizontalOptions="End" Aspect="Fill" HeightRequest="100" WidthRequest="100" Source="{Binding CurrentConditions.Icon, Converter={StaticResource IconToUrlConverter}}" />
+            <Label Text="{Binding CurrentConditions.Temperature, Converter={StaticResource ZeroToPlaceholderConverter}}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="64"/>
+            <Label Text="°" FontSize="64"/>
+            <Label Text="F" VerticalOptions="Center" FontSize="22"/>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
+            <Label Text="{Binding CurrentConditions.MaxTemperature, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Large"/>
+            <Label Margin="5,0,0,0" Text="{Binding CurrentConditions.MinTemperature, Converter={StaticResource CharacterLabelConverter}, ConverterParameter=°}" HorizontalOptions="Start" VerticalOptions="Center" FontSize="Small"/>
+        </StackLayout>
+
+        <Label Grid.Row="3" FontAttributes="Bold" Text="{Binding CurrentConditions.Conditions}" HorizontalOptions="Center" VerticalOptions="Start" FontSize="Medium"/>
+        <Label Grid.Row="4"  Text="{Binding CurrentConditions.TimeStamp, Converter={StaticResource UpdatedLabelConverter}}" HorizontalOptions="Center" VerticalOptions="Start" FontSize="Micro"/>
+
+        <ActivityIndicator Color="{StaticResource AppAccentColor}" VerticalOptions="Center" HorizontalOptions="Center" Grid.RowSpan="5" IsRunning="{Binding IsBusy}" IsEnabled="{Binding IsBusy}" IsVisible="{Binding IsBusy}">
+            <ActivityIndicator.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double" iOS="100" Android="100" WinPhone="400" />
+            </ActivityIndicator.WidthRequest>
+        </ActivityIndicator>
+
+    </Grid>
 
 </ContentPage>
