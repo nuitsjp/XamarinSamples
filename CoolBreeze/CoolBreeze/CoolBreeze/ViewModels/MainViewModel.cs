@@ -22,9 +22,22 @@ namespace CoolBreeze
             this.IsBusy = true;
             this.NeedsRefresh = true;
             this.LocationType = LocationType.City;
-            this.CityName = "Amsterdam";
-            this.CountryCode = "HL";
             this.CurrentConditions = new WeatherInformation();
+            this.Forecast = new ObservableCollection<WeatherInformation>();
+
+            this.ChallengeSubmission = new SubmissionInformation()
+            {
+                IsSubmitted = false,
+            };
+
+            this.ChallengeSubmission.RegisterAsync(App.RegistrationCode);
+        }
+
+        private SubmissionInformation _challengeSubmission;
+        public SubmissionInformation ChallengeSubmission
+        {
+            get { return this._challengeSubmission; }
+            set { this.SetProperty(ref this._challengeSubmission, value); }
         }
 
         private LocationType _locationType;

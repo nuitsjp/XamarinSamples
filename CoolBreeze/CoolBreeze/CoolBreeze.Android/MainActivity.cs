@@ -20,6 +20,7 @@ namespace CoolBreeze.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            Microsoft.Azure.Mobile.MobileCenter.Configure("ANDROID_APP_SECRET");
             LoadApplication(new App());
         }
     }
