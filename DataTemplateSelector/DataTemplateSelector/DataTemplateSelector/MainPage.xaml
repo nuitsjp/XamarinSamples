@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:DataTemplateSelector"
+             x:Class="DataTemplateSelector.MainPage">
+    <ContentPage.BindingContext>
+        <local:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="MaleDataTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="氏名"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" TextColor="Blue"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="体重" IsVisible="{Binding IsSelected}"/>
+                        <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Weight}" IsVisible="{Binding IsSelected}"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <DataTemplate x:Key="FemaleDataTemplate">
+                <ViewCell>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="氏名"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" TextColor="Red"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="身長" IsVisible="{Binding IsSelected}"/>
+                        <Entry Grid.Row="1" Grid.Column="1" Text="{Binding Height}" IsVisible="{Binding IsSelected}"/>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <local:PersonDataTemplateSelector x:Key="PersonDataTemplateSelector"
+                                              MaleTemplate="{StaticResource MaleDataTemplate}"
+                                              FemaleTemplate="{StaticResource FemaleDataTemplate}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ListView ItemsSource="{Binding Persons}" 
+              ItemTemplate="{StaticResource PersonDataTemplateSelector}"
+              SelectedItem="{Binding SelectedPerson}"
+              HasUnevenRows="True"/>
+</ContentPage>
