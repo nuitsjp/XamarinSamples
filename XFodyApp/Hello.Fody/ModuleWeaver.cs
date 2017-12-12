@@ -22,7 +22,7 @@ public class ModuleWeaver
     public void Execute()
     {
         var methods = ModuleDefinition
-            .Types.Where(x => x.Namespace.EndsWith("ViewModels"))
+            .Types.Where(x => x.Name.EndsWith("ViewModel"))
             .SelectMany(x => x.Methods);
         foreach (var method in methods)
         {
